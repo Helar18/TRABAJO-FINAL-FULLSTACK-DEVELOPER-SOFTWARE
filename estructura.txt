@@ -1,0 +1,79 @@
+EMPRESA-VENTAS/
+├── backend/                           
+│   ├── bin/    
+│   ├── config/  
+│   │   └── db.js  
+│   ├── controllers/    
+│   │   └── authController.js  
+│   │   └── companyController.js
+│   │   └── empleadoVentaController.js
+│   │   └── employeeController.js
+│   │   └── productController.js
+│   │   └── ventaController.js
+│   ├── middleware/    
+│   │   └── authMiddleware.js   
+│   │   └── checkAdmin.js   
+│   ├── models/ 
+│   │   └── companyModel.js     
+│   │   └── productModel.js       
+│   │   └── userModel.js   
+│   │   └── ventaModel.js  
+│   ├── node_modules/  
+│   ├── public/    
+│   │   └── images
+│   │   └── JavaScript
+│   │   └── stylesheets
+│   │   └── index.html
+│   ├── routes/    
+│   │   └── authRoutes.js
+│   │   └── companyRoutes.js
+│   │   └── empleadoVentaRoutes.js
+│   │   └── employeeRoutes.js
+│   │   └── index.js
+│   │   └── productRoutes.js
+│   │   └── user.js
+│   │   └── ventaRoutes.js
+│   ├── .env
+│   ├── app.js
+│   ├── hash.js
+│   ├── package-lock.json
+│   ├── package.json                    
+├── frontend/     
+│   ├── node_modules/   
+│   ├── public/     
+│   ├── src/  
+│   │   ├── components/   
+│   │   │   └── AddEmployee.jsx 
+│   │   │   └── AddProduct.jsx 
+│   │   │   └── Boleta.jsx
+│   │   │   └── CompayInfo.jsx
+│   │   │   └── DashboardLayoutAdmin.jsx
+│   │   │   └── DashboardLayoutEmployee.jsx
+│   │   │   └── EmployeeList.jsx
+│   │   │   └── EmployeeProductList.jsx
+│   │   │   └── EstadisticasEmpleado.jsx
+│   │   │   └── InventoryChart.jsx
+│   │   │   └── ModalEditar.jsx
+│   │   │   └── ProductList.jsx 
+│   │   │   └── ProtectedRoute.jsx 
+│   │   │   └── RealizarVenta.jsx 
+│   │   │   └── SidebarAdmin.jsx
+│   │   │   └── SidebarEmployee.jsx
+│   │   │   └── Topbar.jsx
+│   │   │   └── VentaExitosaModal.jsx 
+│   │   ├── pages/    
+│   │   │   └──  
+│   │   │   └── AdminDashboard.jsx
+│   │   │   └── EmployeeDashboard.jsx
+│   │   │   └── Login.jsx
+│   │   ├── services/   
+│   │   │   └── api.js     
+│   │   ├── app.jsx  
+│   │   ├── App.test.js/    
+│   │   ├── index.js/       
+│   │   ├── reporWebVitals.js/
+│   │   ├── setupTest.js/    
+│   │   ├── .gitignore/  
+│   ├── package-lock.json          
+│   ├── package.json     
+│   ├── README.md       

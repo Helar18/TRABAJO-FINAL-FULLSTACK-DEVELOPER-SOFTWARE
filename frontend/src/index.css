@@ -1,0 +1,28 @@
+
+    /* Estilos globales */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box; /* Esto asegura que el padding y el border no afecten el tamaño total de los elementos */
+    }
+    
+    html, body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden; /* Evita la barra de desplazamiento */
+        background-color: #f5f5f5; /* Fondo general */
+        font-family: 'Arial', sans-serif; /* Fuente general */
+    }
+    
+    #root {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Esto asegura que el contenedor principal no tenga margen ni padding que cree un borde blanco */
+    div {
+        margin: 0;
+        padding: 0;
+    }
+    

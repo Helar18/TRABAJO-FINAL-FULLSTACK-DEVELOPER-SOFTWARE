@@ -1,0 +1,151 @@
+-- ==========================
+-- Crear base de datos y usarla
+-- ==========================
+CREATE DATABASE IF NOT EXISTS empresa_ventas;
+USE empresa_ventas;
+
+-- ==========================
+-- Tabla: admins
+-- ==========================
+CREATE TABLE IF NOT EXISTS admins (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insertar datos iniciales para admins (ya insertado antes, no modificar)
+INSERT INTO admins (name, email, password) VALUES 
+('Helar', 'admin@gmail.com', '$2b$10$5twf5bzQdZIzLcM/50HyS.tK8Yja7GrM6AENFjim3Y/U82udseRyq');
+
+-- ==========================
+-- Tabla: empleados
+-- ==========================
+CREATE TABLE IF NOT EXISTS empleados (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  dni VARCHAR(20) NOT NULL,
+  fecha_nacimiento DATE,
+  fecha_ingreso DATE,
+  telefono VARCHAR(20),
+  direccion VARCHAR(255),
+  foto_perfil VARCHAR(255),
+  rol VARCHAR(50),
+  salario DECIMAL(10,2),
+  historial_trabajo TEXT,
+  activo BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insertar 5 empleados con datos realistas
+INSERT INTO empleados (name, email, password, dni, fecha_nacimiento, fecha_ingreso, telefono, direccion, foto_perfil, rol, salario, historial_trabajo) VALUES
+('Juan Pérez', 'juan.perez@botica.com', '$2b$10$Njhs4ZCckhlst2V6G6iC.OJTVq6JJTzrxXTfDvVfWXYwCUl/wVJd.', '70512345', '1992-04-15', '2022-01-10', '987654321', 'Av. Los Álamos 345', 'juan.jpg', 'Vendedor', 1600.00, '2 años en atención al cliente.'),
+('María Rojas', 'maria.rojas@botica.com', '$2b$10$Njhs4ZCckhlst2V6G6iC.OJTVq6JJTzrxXTfDvVfWXYwCUl/wVJd.', '45678912', '1988-09-25', '2021-11-05', '965432178', 'Calle Las Rosas 234', 'maria.jpg', 'Vendedora', 1700.00, 'Experiencia en gestión de inventario.'),
+('Luis García', 'luis.garcia@botica.com', '$2b$10$Njhs4ZCckhlst2V6G6iC.OJTVq6JJTzrxXTfDvVfWXYwCUl/wVJd.', '87654321', '1990-07-30', '2023-03-01', '912345678', 'Jr. Comercio 789', 'luis.jpg', 'Almacenero', 1550.00, 'Encargado de stock en boticas.'),
+('Carmen Díaz', 'carmen.diaz@botica.com', '$2b$10$Njhs4ZCckhlst2V6G6iC.OJTVq6JJTzrxXTfDvVfWXYwCUl/wVJd.', '74125896', '1995-02-18', '2022-08-15', '999888777', 'Av. Grau 123', 'carmen.jpg', 'Farmacéutica', 1800.00, 'Lic. en farmacia y bioquímica.'),
+('José Ramírez', 'jose.ramirez@botica.com', '$2b$10$Njhs4ZCckhlst2V6G6iC.OJTVq6JJTzrxXTfDvVfWXYwCUl/wVJd.', '69874512', '1985-12-12', '2020-05-20', '923456781', 'Calle Unión 456', 'jose.jpg', 'Supervisor', 2000.00, 'Experiencia en supervisión de boticas.');
+
+-- ==========================
+-- Tabla: empresa
+-- ==========================
+CREATE TABLE IF NOT EXISTS empresa (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255) NOT NULL,
+  ruc VARCHAR(20) NOT NULL,
+  direccion VARCHAR(255),
+  telefono VARCHAR(20),
+  email VARCHAR(100),
+  representante VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insertar datos de ejemplo para empresa
+INSERT INTO empresa (nombre, ruc, direccion, telefono, email, representante)
+VALUES ('Botica Nova Salud', '20654321879', 'Av. Lima 456 - Centro Comercial Plaza', '987654321', 'contacto@novasalud.com', 'Lucía Timana');
+
+-- ==========================
+-- Tabla: products (Medicamentos reales en Perú)
+-- ==========================
+CREATE TABLE IF NOT EXISTS products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  stock INT NOT NULL,
+  category VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insertar medicamentos reales con precios aproximados
+INSERT INTO products (name, price, stock, category) VALUES
+('Paracetamol 500 mg', 2.50, 100, 'Analgésico'),
+('Ibuprofeno 400 mg', 3.50, 5, 'Antiinflamatorio'),
+('Naproxeno 550 mg', 6.00, 60, 'Antiinflamatorio'),
+('Diclofenaco 50 mg', 3.00, 3, 'Antiinflamatorio'),
+('Panadol Antigripal', 6.50, 50, 'Antigripal'),
+('Fervex', 9.00, 40, 'Antigripal'),
+('Vicks VapoRub 50g', 8.90, 30, 'Antigripal / Cuidado personal'),
+('Amoxicilina 500 mg', 5.50, 50, 'Antibiótico'),
+('Azitromicina 500 mg', 12.00, 40, 'Antibiótico'),
+('Ciprofloxacino 500 mg', 7.00, 45, 'Antibiótico'),
+('Omeprazol 20 mg', 4.50, 70, 'Digestivo'),
+('Ranitidina 150 mg', 5.00, 60, 'Digestivo'),
+('Sal de Andrews (sobre)', 1.50, 100, 'Digestivo'),
+('Loratadina 10 mg', 4.00, 60, 'Antialérgico'),
+('Cetirizina 10 mg', 5.00, 50, 'Antialérgico'),
+('Clorfenamina 4 mg', 3.00, 70, 'Antialérgico'),
+('Alcohol en gel 250 ml', 5.00, 40, 'Antiséptico'),
+('Alcohol 70% 1L', 6.50, 35, 'Antiséptico'),
+('Agua oxigenada 100 ml', 2.50, 2, 'Antiséptico');
+
+-- ==========================
+-- Tabla: ventas
+-- ==========================
+CREATE TABLE IF NOT EXISTS ventas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  empleado_id INT NOT NULL,
+  cliente_nombre VARCHAR(100),
+  cliente_dni VARCHAR(20),
+  metodo_pago VARCHAR(50) NOT NULL,
+  total DECIMAL(10,2) NOT NULL,
+  monto_pago DECIMAL(10,2) NOT NULL,
+  vuelto DECIMAL(10,2) NOT NULL,
+  fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (empleado_id) REFERENCES empleados(id)
+);
+
+-- Insertar ventas para cada empleado con productos seleccionados
+INSERT INTO ventas (empleado_id, cliente_nombre, cliente_dni, metodo_pago, total, monto_pago, vuelto) VALUES
+(1, 'Carlos Fernández', '12345678', 'Efectivo', 25.50, 30.00, 4.50),
+(2, 'Ana García', '87654321', 'Tarjeta', 35.00, 40.00, 5.00),
+(3, 'Pedro Ruiz', '11223344', 'Efectivo', 20.00, 25.00, 5.00),
+(4, 'Laura Fernández', '55667788', 'Tarjeta', 50.00, 60.00, 10.00),
+(5, 'Miguel Farfan', '22334455', 'Efectivo', 15.50, 20.00, 4.50);
+
+-- ==========================
+-- Tabla: detalle_venta
+-- ==========================
+CREATE TABLE IF NOT EXISTS detalle_venta (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  venta_id INT NOT NULL,
+  producto_id INT NOT NULL,
+  cantidad INT NOT NULL,
+  precio_unitario DECIMAL(10,2) NOT NULL,
+  subtotal DECIMAL(10,2) GENERATED ALWAYS AS (cantidad * precio_unitario) STORED,
+  FOREIGN KEY (venta_id) REFERENCES ventas(id) ON DELETE CASCADE,
+  FOREIGN KEY (producto_id) REFERENCES products(id)
+);
+
+-- Insertar detalles de las ventas realizadas
+INSERT INTO detalle_venta (venta_id, producto_id, cantidad, precio_unitario) VALUES
+(1, 1, 3, 2.50),
+(1, 3, 2, 6.00),
+(2, 5, 3, 6.50),
+(2, 7, 2, 8.90),
+(3, 4, 4, 3.00),
+(4, 2, 5, 3.50),
+(4, 9, 2, 12.00),
+(5, 1, 2, 2.50),
+(5, 8, 1, 5.50);
