@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS admins (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insertar datos iniciales para admins (ya insertado antes, no modificar)
+-- Insertar datos iniciales para admins
 INSERT INTO admins (name, email, password) VALUES 
 ('Helar', 'admin@gmail.com', '$2b$10$5twf5bzQdZIzLcM/50HyS.tK8Yja7GrM6AENFjim3Y/U82udseRyq');
 
@@ -40,8 +40,9 @@ CREATE TABLE IF NOT EXISTS empleados (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insertar 5 empleados con datos realistas
+-- Insertar 6 empleados con datos realistas (incluyendo a 'Juan')
 INSERT INTO empleados (name, email, password, dni, fecha_nacimiento, fecha_ingreso, telefono, direccion, foto_perfil, rol, salario, historial_trabajo) VALUES
+('Juan', 'empleado@gmail.com', '$2b$10$Njhs4ZCckhlst2V6G6iC.OJTVq6JJTzrxXTfDvVfWXYwCUl/wVJd.', '12345678', '1990-05-12', '2021-06-01', '123456789', 'Calle Ficticia 123', 'path_to_profile_picture.jpg', 'Empleado', 1500.00, 'Historial de trabajo no disponible'),
 ('Juan Pérez', 'juan.perez@botica.com', '$2b$10$Njhs4ZCckhlst2V6G6iC.OJTVq6JJTzrxXTfDvVfWXYwCUl/wVJd.', '70512345', '1992-04-15', '2022-01-10', '987654321', 'Av. Los Álamos 345', 'juan.jpg', 'Vendedor', 1600.00, '2 años en atención al cliente.'),
 ('María Rojas', 'maria.rojas@botica.com', '$2b$10$Njhs4ZCckhlst2V6G6iC.OJTVq6JJTzrxXTfDvVfWXYwCUl/wVJd.', '45678912', '1988-09-25', '2021-11-05', '965432178', 'Calle Las Rosas 234', 'maria.jpg', 'Vendedora', 1700.00, 'Experiencia en gestión de inventario.'),
 ('Luis García', 'luis.garcia@botica.com', '$2b$10$Njhs4ZCckhlst2V6G6iC.OJTVq6JJTzrxXTfDvVfWXYwCUl/wVJd.', '87654321', '1990-07-30', '2023-03-01', '912345678', 'Jr. Comercio 789', 'luis.jpg', 'Almacenero', 1550.00, 'Encargado de stock en boticas.'),
@@ -67,7 +68,7 @@ INSERT INTO empresa (nombre, ruc, direccion, telefono, email, representante)
 VALUES ('Botica Nova Salud', '20654321879', 'Av. Lima 456 - Centro Comercial Plaza', '987654321', 'contacto@novasalud.com', 'Lucía Timana');
 
 -- ==========================
--- Tabla: products (Medicamentos reales en Perú)
+-- Tabla: products
 -- ==========================
 CREATE TABLE IF NOT EXISTS products (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS products (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insertar medicamentos reales con precios aproximados
+-- Insertar productos
 INSERT INTO products (name, price, stock, category) VALUES
 ('Paracetamol 500 mg', 2.50, 100, 'Analgésico'),
 ('Ibuprofeno 400 mg', 3.50, 5, 'Antiinflamatorio'),
@@ -116,13 +117,14 @@ CREATE TABLE IF NOT EXISTS ventas (
   FOREIGN KEY (empleado_id) REFERENCES empleados(id)
 );
 
--- Insertar ventas para cada empleado con productos seleccionados
+-- Insertar ventas (incluyendo a Juan que tiene id=1)
 INSERT INTO ventas (empleado_id, cliente_nombre, cliente_dni, metodo_pago, total, monto_pago, vuelto) VALUES
-(1, 'Carlos Fernández', '12345678', 'Efectivo', 25.50, 30.00, 4.50),
-(2, 'Ana García', '87654321', 'Tarjeta', 35.00, 40.00, 5.00),
-(3, 'Pedro Ruiz', '11223344', 'Efectivo', 20.00, 25.00, 5.00),
-(4, 'Laura Fernández', '55667788', 'Tarjeta', 50.00, 60.00, 10.00),
-(5, 'Miguel Farfan', '22334455', 'Efectivo', 15.50, 20.00, 4.50);
+(1, 'Luis Medina', '12344321', 'Efectivo', 10.00, 20.00, 10.00),
+(2, 'Carlos Fernández', '12345678', 'Efectivo', 25.50, 30.00, 4.50),
+(3, 'Ana García', '87654321', 'Tarjeta', 35.00, 40.00, 5.00),
+(4, 'Pedro Ruiz', '11223344', 'Efectivo', 20.00, 25.00, 5.00),
+(5, 'Laura Fernández', '55667788', 'Tarjeta', 50.00, 60.00, 10.00),
+(6, 'Miguel Farfan', '22334455', 'Efectivo', 15.50, 20.00, 4.50);
 
 -- ==========================
 -- Tabla: detalle_venta
@@ -140,12 +142,14 @@ CREATE TABLE IF NOT EXISTS detalle_venta (
 
 -- Insertar detalles de las ventas realizadas
 INSERT INTO detalle_venta (venta_id, producto_id, cantidad, precio_unitario) VALUES
-(1, 1, 3, 2.50),
-(1, 3, 2, 6.00),
-(2, 5, 3, 6.50),
-(2, 7, 2, 8.90),
-(3, 4, 4, 3.00),
-(4, 2, 5, 3.50),
-(4, 9, 2, 12.00),
-(5, 1, 2, 2.50),
-(5, 8, 1, 5.50);
+(1, 1, 4, 2.50),  -- Venta de Juan
+(2, 1, 3, 2.50),
+(2, 3, 2, 6.00),
+(3, 5, 3, 6.50),
+(3, 7, 2, 8.90),
+(4, 4, 4, 3.00),
+(5, 2, 5, 3.50),
+(5, 9, 2, 12.00),
+(6, 1, 2, 2.50),
+(6, 8, 1, 5.50);
+
